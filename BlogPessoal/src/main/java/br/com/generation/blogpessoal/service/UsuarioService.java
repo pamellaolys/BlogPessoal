@@ -23,10 +23,11 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepository;
 
 	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
-		
-		
+	
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
-			return null;
+			throw new ResponseStatusException(
+		          	HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
+			
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 

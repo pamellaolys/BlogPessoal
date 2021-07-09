@@ -82,5 +82,11 @@ public class Postagem {
 		this.tema = tema;
 	}
 
-	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setTema(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }
