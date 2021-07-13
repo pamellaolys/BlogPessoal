@@ -24,7 +24,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {  // Verifica se o usuário (email) existe
+	public Usuario cadastrarUsuario(Usuario usuario) {  // Verifica se o usuário (email) existe
 	
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			throw new ResponseStatusException(
@@ -42,7 +42,7 @@ int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYear
 		String senhaEncoder = encoder.encode(usuario.getSenha());
 		usuario.setSenha(senhaEncoder);
 
-		return Optional.of(usuarioRepository.save(usuario));
+		return (usuarioRepository.save(usuario));
 	}
 
 	
