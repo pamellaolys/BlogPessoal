@@ -43,7 +43,7 @@ public class Usuario {
 		
 		@Column(name = "dt_nascimento")
 		@JsonFormat(pattern="yyyy-MM-dd")
-	    private LocalDate dataNascimento; // Atributo adicional
+	    private LocalDate dataNascimento; // Atributo adicional necessario para regra de negocio onde a aplicação será para maior 18
 			
 		@OneToMany (mappedBy = "usuario", cascade = CascadeType.REMOVE)// remove --> se apagar o usuario ai sim apaga o usuario 
 		@JsonIgnoreProperties("usuario")

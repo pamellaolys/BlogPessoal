@@ -1,6 +1,7 @@
 package br.com.generation.blogpessoal.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.generation.blogpessoal.model.Tema;
 import br.com.generation.blogpessoal.repository.TemaRepository;
+import br.com.generation.blogpessoal.service.TemaService;
 
 
 
@@ -25,6 +28,9 @@ public class TemaController {
 
 	@Autowired
 	private TemaRepository temarepository;
+	
+	@Autowired
+	private TemaService temaService;
 	
 	@GetMapping("/listar")
 	public ResponseEntity<List<Tema>> GetAll() {
@@ -44,17 +50,26 @@ public class TemaController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Tema> post(@RequestBody Tema tema) {
+	public ResponseEntity<Tema> postTema(@RequestBody Tema tema) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(temarepository.save(tema));
 	}
 
 	@PutMapping
 	public ResponseEntity<Tema> put(@RequestBody Tema tema) {
 		return ResponseEntity.status(HttpStatus.OK).body(temarepository.save(tema));
+		
 	}
+	
 	@DeleteMapping("/{id}")
 	public void delete (@PathVariable long id) {
 		temarepository.deleteById(id);
 	}	
+	
+	@GetMapping("/trendtopics") // metodo que calcula o numero de postagens por tema
+	public ResponseEntity<List<Tema>> getTrendTopics() {
+		
+		return ResponseEntity.ok(temaService.trendTopics());
+	
+	}
 }
 

@@ -1,6 +1,8 @@
 package br.com.generation.blogpessoal.service;
 
 import java.nio.charset.Charset;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
@@ -10,8 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.generation.blogpessoal.model.UsuarioLogin;
 import br.com.generation.blogpessoal.model.Usuario;
+import br.com.generation.blogpessoal.model.UsuarioLogin;
 import br.com.generation.blogpessoal.repository.UsuarioRepository;
 
 
@@ -22,12 +24,18 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {
+	public Optional<Usuario> cadastrarUsuario(Usuario usuario) {  // Verifica se o usuário (email) existe
 	
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			throw new ResponseStatusException(
 		          	HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 			
+int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYears();
+		
+		if(idade < 18)
+			throw new ResponseStatusException(
+						HttpStatus.BAD_REQUEST, "Usuário menor de 18 anos", null);
+		
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -41,6 +49,12 @@ public class UsuarioService {
 	public Optional<Usuario> atualizarUsuario(Usuario usuario){
 		
 		if(usuarioRepository.findById(usuario.getId()).isPresent()) {
+			
+			int idade = Period.between(usuario.getDataNascimento(), LocalDate.now()).getYears();
+			
+			if(idade < 18)
+				throw new ResponseStatusException(
+							HttpStatus.BAD_REQUEST, "Usuário menor de 18 anos", null);
 					
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 			
@@ -78,7 +92,8 @@ public class UsuarioService {
 
 			}
 		}
-		return null;
+		throw new ResponseStatusException(
+				HttpStatus.UNAUTHORIZED, "Usuário ou senha inválidos!", null);
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.generation.blogpessoal.model.Postagem;
 import br.com.generation.blogpessoal.repository.PostagemRepository;
+import br.com.generation.blogpessoal.service.PostagemService;
 
 @RestController
 @RequestMapping("/postagens")
@@ -24,37 +25,57 @@ import br.com.generation.blogpessoal.repository.PostagemRepository;
 public class PostagemController {
 
 	@Autowired
-	private PostagemRepository repository;
+	private PostagemRepository postagemrepository;
 
+	@Autowired
+	private PostagemService postagemService;
+	
 	@GetMapping("/listar")
 	public ResponseEntity<List<Postagem>> GetAll() {
-		return ResponseEntity.ok(repository.findAll());
+		return ResponseEntity.ok(postagemrepository.findAll());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> GetById(@PathVariable long id) {
-		return repository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+		return postagemrepository.findById(id).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
 
 	}
 
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo) {
-		return ResponseEntity.ok(repository.findAllByTituloContainingIgnoreCase(titulo));
+		return ResponseEntity.ok(postagemrepository.findAllByTituloContainingIgnoreCase(titulo));
 
 	}
 
 	@PostMapping
-	public ResponseEntity<Postagem> post(@RequestBody Postagem postagem) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
+	public ResponseEntity<Postagem> postPostagem(@RequestBody Postagem postagem) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(postagemrepository.save(postagem));
 	}
 
 	@PutMapping
-	public ResponseEntity<Postagem> put(@RequestBody Postagem postagem) {
-		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
+	public ResponseEntity<Postagem> putPostagem(@RequestBody Postagem postagem) {
+		return ResponseEntity.status(HttpStatus.OK).body(postagemrepository.save(postagem));
 	}
+	
+	@PutMapping("/curtir/{id}") //metodo para curtir postagem
+	public ResponseEntity<Postagem> putCurtirPostagemId (@PathVariable Long id){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(postagemService.curtir(id));
+		
+	}
+	
+	@PutMapping("/descurtir/{id}")//metodo para descurtir postagem
+	public ResponseEntity<Postagem> putDescurtirPostagemId (@PathVariable Long id){
+		
+		return ResponseEntity.status(HttpStatus.OK).body(postagemService.descurtir(id));
+	
+	}
+	
 	@DeleteMapping("/{id}")
 	public void delete (@PathVariable long id) {
-		repository.deleteById(id);
+		postagemrepository.deleteById(id);
 	}	
+	
+	
 }
 

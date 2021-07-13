@@ -1,6 +1,7 @@
 package br.com.generation.blogpessoal.seguranca;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +16,11 @@ private static final long serialVersionUID =1L;
 	
 	private String password;
 	
-	public UserDetailsImpl (Usuario user){ //construtor de classe composto de login e senha
-		this.userName = user.getUsuario();
-		this.password = user.getSenha();
+	private List<GrantedAuthority> authorities;
+	
+	public UserDetailsImpl (Usuario usuario){ //construtor de classe composto de login e senha
+		this.userName = usuario.getUsuario();
+		this.password = usuario.getSenha();
 	}
 	
 	public UserDetailsImpl (){}  //construtor vazio
@@ -25,7 +28,7 @@ private static final long serialVersionUID =1L;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 	
-		return null;
+		return authorities;
 	}
 
 	@Override
