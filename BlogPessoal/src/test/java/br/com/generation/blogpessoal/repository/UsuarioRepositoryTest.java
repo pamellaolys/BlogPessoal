@@ -3,13 +3,10 @@ package br.com.generation.blogpessoal.repository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
+import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,21 +26,21 @@ public class UsuarioRepositoryTest {
 		@BeforeAll
 		public void start() {
 			
-			LocalDate data = LocalDate.parse("2000-07-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
 			
-			Usuario usuario = new Usuario(0L, "Paulo Gustavo", "paulog@email.com.br", "12345", data);
+			Usuario usuario = new Usuario(0L, "Paulo Gustavo", "paulog@email.com.br", "12345");
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 
-			usuario = new Usuario(0L, "Paulo Tanabe", "tanabepaulo@email.com.br", "12345",data);
+			usuario = new Usuario(0L, "Paulo Tanabe", "tanabepaulo@email.com.br", "12345");
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 
-			usuario = new Usuario(0L, "Paulo Rodrigues", "rdgspaulo@email.com.br", "12345", data);
+			usuario = new Usuario(0L, "Paulo Rodrigues", "rdgspaulo@email.com.br", "12345");
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 
-			usuario = new Usuario(0L, "Janaina Silva", "janaina@email.com.br", "12345", data);
+			usuario = new Usuario(0L, "Janaina Silva", "janaina@email.com.br", "12345");
 			if (usuarioRepository.findByNome(usuario.getNome()) == null)
 				usuarioRepository.save(usuario);
 		}

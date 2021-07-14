@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.generation.blogpessoal.model.Tema;
 import br.com.generation.blogpessoal.repository.TemaRepository;
-import br.com.generation.blogpessoal.service.TemaService;
-
 
 
 @RestController
@@ -29,8 +27,6 @@ public class TemaController {
 	@Autowired
 	private TemaRepository temarepository;
 	
-	@Autowired
-	private TemaService temaService;
 	
 	@GetMapping("/listar")
 	public ResponseEntity<List<Tema>> GetAll() {
@@ -63,12 +59,6 @@ public class TemaController {
 	@DeleteMapping("/{id}")
 	public void delete (@PathVariable long id) {
 		temarepository.deleteById(id);
-	}	
-	
-	@GetMapping("/trendtopics") // metodo que calcula o numero de postagens por tema
-	public ResponseEntity<List<Tema>> getTrendTopics() {
-		
-		return ResponseEntity.ok(temaService.trendTopics());
 	
 	}
 }

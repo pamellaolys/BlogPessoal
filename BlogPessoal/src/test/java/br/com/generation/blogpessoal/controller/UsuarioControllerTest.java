@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
@@ -31,21 +29,21 @@ public class UsuarioControllerTest {
 	@BeforeAll
 	public void start() throws ParseException {
 	   
-		LocalDate data = LocalDate.parse("2000-07-22", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	
 		
-		Usuario usuario = new Usuario (0L, "Simone Oliveira", "monny@email.com.br", "13465678", data);
+		Usuario usuario = new Usuario (0L, "Simone Oliveira", "monny@email.com.br", "13465678");
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
 			usuarioRepository.save(usuario);
 		
-		usuario = new Usuario (0L, "Elisabeth de Oliveira", "betholiveira@email.com.br", "13465278", data);
+		usuario = new Usuario (0L, "Elisabeth de Oliveira", "betholiveira@email.com.br", "13465278");
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
 			usuarioRepository.save(usuario);
 		
-		usuario = new Usuario (0L, "Regina de Oliveira Silva", "reginaos@email.com.br", "13465278", data);
+		usuario = new Usuario (0L, "Regina de Oliveira Silva", "reginaos@email.com.br", "13465278");
 		if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
 			usuarioRepository.save(usuario);
 
-        usuario = new Usuario (0L, "João Pereira", "pereirapaulo@email.com.br", "13465278", data);
+        usuario = new Usuario (0L, "João Pereira", "pereirapaulo@email.com.br", "13465278");
         if(usuarioRepository.findByUsuario(usuario.getUsuario()) != null)
             usuarioRepository.save(usuario);
 	}

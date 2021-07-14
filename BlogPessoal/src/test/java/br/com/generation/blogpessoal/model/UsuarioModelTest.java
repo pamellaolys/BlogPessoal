@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -37,9 +35,9 @@ public class UsuarioModelTest {
 	@BeforeEach
 	public void start() throws ParseException {
 
-		LocalDate data = LocalDate.parse("1969-09-29", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		
-        usuario = new Usuario(0L, "Simone Oliveira", "monny@email.com.br", "13465278", data);
+		
+        usuario = new Usuario(0L, "Simone Oliveira", "monny@email.com.br", "13465278");
 
 	}
 

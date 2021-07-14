@@ -45,8 +45,7 @@ public class Postagem {
 	@ManyToOne
 	@JsonIgnoreProperties ("postagem")
 	private Usuario usuario;
-	
-	
+
 	public long getId() {
 		return id;
 	}
@@ -71,13 +70,22 @@ public class Postagem {
 		this.texto = texto;
 	}
 
-	public Date getDate() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setDate(Date data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
+
+	public int getCurtidas() {
+		return curtidas;
+	}
+
+	public void setCurtidas(int curtidas) {
+		this.curtidas = curtidas;
+	}
+
 	public Tema getTema() {
 		return tema;
 	}
@@ -90,15 +98,9 @@ public class Postagem {
 		return usuario;
 	}
 
-	public void setTema(Usuario usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-	public int getCurtidas() {
-		return curtidas;
-	}
-
-	public void setCurtidas(int curtidas) {
-		this.curtidas = curtidas;
-	}
+	
+	
 }
